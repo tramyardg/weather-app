@@ -9,5 +9,29 @@
 }
 
 .weather-widget {
+  max-width: 800px;
+  margin: 0 auto;
+}
 
+.weather-widget {
+  .city-wrapper {
+    display: flex;
+    padding: 2rem;
+    .city {
+      margin: 0 auto;
+      text-transform: uppercase;
+
+      color: #84878C;
+      font-size: 20px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      &.active {
+        color: aqua;
+      }
+    }
+  }
+}
+
+.container {
+  
 }
