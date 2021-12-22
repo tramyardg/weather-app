@@ -1,6 +1,6 @@
 import React from "react";
 
-export const WeatherWidget = ({ children, cities, weatherCodes, handleClick }) => {
+export const WeatherWidget = ({ children, cities, weatherCodes, currentDayForecast, fourDayForecast, handleClick }) => {
 
     return (
         <>
@@ -8,7 +8,7 @@ export const WeatherWidget = ({ children, cities, weatherCodes, handleClick }) =
                 <div className="weather-widget">
                     {React.Children.map(children, (child) => {
                         if (React.isValidElement(child)) {
-                            return React.cloneElement(child, { cities, weatherCodes, handleClick });
+                            return React.cloneElement(child, { cities, weatherCodes, currentDayForecast, fourDayForecast, handleClick });
                         }
                         return child;
                     })}

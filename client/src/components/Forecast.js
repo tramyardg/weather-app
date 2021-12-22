@@ -1,37 +1,38 @@
+import dayjs from "dayjs";
 import React from "react";
+import { getDayOfWeek, getWeatherCode, roundUpTemp } from "../helpers/util";
 
-export const Forecast = ({ weatherCodes }) => {
+export const Forecast = ({ weatherCodes, currentDayForecast, fourDayForecast }) => {
+    console.log(currentDayForecast, fourDayForecast);
+
+    const getDayISOstring = (startTime) => getDayOfWeek(dayjs(startTime).day());    
 
     return (
         <>
-            <div className="forecast">
-                <div className="current">
-                    <p>Today</p>
-                    <div className="info">
-                        <img src={weatherCodes[1].img} alt="weather icon" />
-                        <div className="degree-celcius">
-                            <span className="celcius">19<span>&#176;</span></span>
-                            <span className="code-name">Cloudy</span>
+            {(currentDayForecast && fourDayForecast) && (
+                <div className="forecast">
+                    <div className="current">
+                        <p className="">Today</p>
+                        <div className="info">
+                            <img src={getWeatherCode(weatherCodes, currentDayForecast.weatherCode).img} alt="weather icon" />
+                            <div className="degree-celcius">
+                                <span className="celcius">{roundUpTemp(currentDayForecast.temperature)}<span>&#176;</span></span>
+                                <span className="code-name">{getWeatherCode(weatherCodes, currentDayForecast.weatherCode).name}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="four-day">
-                    <div className="col">
-                        <p>Today</p>
-                        <img src={weatherCodes[1].img} alt="weather icon" />
-                        <p className="celcius">19<span>&#176;</span></p>
-                    </div>
-                    <div className="col">
-                        <p>Today</p>
-                    </div>
-                    <div className="col">
-                        <p>Today</p>
-                    </div>
-                    <div className="col">
-                        <p>Today</p>
+                    <div className="four-day">
+                        {(fourDayForecast.length && weatherCodes) &&
+                            fourDayForecast.map((item, i) =>
+                                <div className="col" key={i}>
+                                    <p>{getDayISOstring(item.startTime)}</p>
+                                    <img src={getWeatherCode(weatherCodes, item.values.weatherCode).img} alt={getWeatherCode(weatherCodes, item.values.weatherCode).name} />
+                                    <p className="celcius">{roundUpTemp(item.values.temperature)}<span>&#176;</span></p>
+                                </div>
+                            )}
                     </div>
                 </div>
-            </div>
+            )}
         </>
     );
 };
