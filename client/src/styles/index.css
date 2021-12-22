@@ -5,4 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: clamp(1.3rem, 4rem, 2rem);
+}
+
+.animate__animated.animate__fadeIn {
+  --animate-duration: 2s;
 }

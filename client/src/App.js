@@ -18,6 +18,7 @@ const LOCATIONS = [
   }
 ];
 
+const CURRENT_CITY = LOCATIONS[0];
 
 const WEATHER_CODES = [
   { code: 0, name: "Unknown", img: "/weather-icons/" },
@@ -52,11 +53,10 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const initialCoordinates = LOCATIONS[0].coordinates;
-      await getTomorrowIoData(initialCoordinates).then((response) => {
+      await getTomorrowIoData(CURRENT_CITY.coordinates).then((response) => {
         const currentDay = response[0]["values"];
         setCurrentDayForecast(currentDay);
-        setFourDayForecast(response.splice(0, 4));
+        setFourDayForecast(response.slice(1, 5));
       });
     }
     fetchData();
@@ -67,7 +67,7 @@ function App() {
       await getTomorrowIoData(coordinates).then((response) => {
         const currentDay = response[0]["values"];
         setCurrentDayForecast(currentDay);
-        setFourDayForecast(response.splice(1, 4)); // four day forecast after today's date
+        setFourDayForecast(response.slice(1, 5));
       });
     } catch (error) {
       console.error(error);
@@ -77,7 +77,7 @@ function App() {
 
 
   const getTomorrowIoData = async (coordinates) => {
-    const API_KEY = "9s2DzA2LjSt2li0ltKMYDUm9PBvbMqLE";
+    const API_KEY = "PH8YZb3RYH4PEZnoCcMFslQWjWPrU9U3";
     const reqURL = `https://api.tomorrow.io/v4/timelines?location=${coordinates}&fields=temperature,weatherCode&units=metric&timesteps=1d&apikey=${API_KEY}`;
 
     const response = await fetch(reqURL);
@@ -93,6 +93,7 @@ function App() {
     <WeatherWidget
       cities={LOCATIONS}
       weatherCodes={WEATHER_CODES}
+      currentCity={CURRENT_CITY}
       currentDayForecast={currentDayForecast}
       fourDayForecast={fourDayForecast}
       handleClickCity={handleClickCity}>
