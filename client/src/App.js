@@ -5,6 +5,7 @@ import { WeatherWidget } from './components/WeatherWidget';
 import { Cities } from './components/Cities';
 import { Forecast } from './components/Forecast';
 import dayjs from 'dayjs';
+// import { testDateCurrent, testDateFourDay } from './helpers/testdata';
 
 const LOCATIONS = [
   {

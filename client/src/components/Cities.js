@@ -49,7 +49,6 @@ export const Cities = ({ cities, currentCity, handleClickCity }) => {
     }
 
     const handleClickMobileMenu = () => {
-        console.log("asd");
         setIsMobileMenuActive(!isMobileMenuActive);
     }
 
