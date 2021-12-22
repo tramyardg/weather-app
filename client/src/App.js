@@ -62,7 +62,7 @@ function App() {
     fetchData();
   }, []);
 
-  const handleClick = async (coordinates) => {
+  const handleClickCity = async (coordinates) => {
     try {
       await getTomorrowIoData(coordinates).then((response) => {
         const currentDay = response[0]["values"];
@@ -77,7 +77,7 @@ function App() {
 
 
   const getTomorrowIoData = async (coordinates) => {
-    const API_KEY = "PH8YZb3RYH4PEZnoCcMFslQWjWPrU9U3";
+    const API_KEY = "9s2DzA2LjSt2li0ltKMYDUm9PBvbMqLE";
     const reqURL = `https://api.tomorrow.io/v4/timelines?location=${coordinates}&fields=temperature,weatherCode&units=metric&timesteps=1d&apikey=${API_KEY}`;
 
     const response = await fetch(reqURL);
@@ -95,7 +95,7 @@ function App() {
       weatherCodes={WEATHER_CODES}
       currentDayForecast={currentDayForecast}
       fourDayForecast={fourDayForecast}
-      handleClick={handleClick}>
+      handleClickCity={handleClickCity}>
       <Cities />
       <Forecast />
     </WeatherWidget>
