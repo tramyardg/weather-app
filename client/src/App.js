@@ -1,5 +1,5 @@
 import './app.scss';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { WeatherWidget } from './components/WeatherWidget';
 import { Cities } from './components/Cities';
 import { Forecast } from './components/Forecast';
@@ -46,8 +46,8 @@ const WEATHER_CODES = [
 ];
 
 function App() {
-  const [coordinates, setCoordinates] = useState(null);
-  const [currentCoordinates, setCurrentCoordinates] = useState(LOCATIONS[0].coordinates);
+  // const [coordinates, setCoordinates] = useState(null);
+  // const [currentCoordinates, setCurrentCoordinates] = useState(LOCATIONS[0].coordinates);
 
   useEffect(() => {
     const callBackendAPI = async () => {
@@ -63,7 +63,7 @@ function App() {
   }, []);
 
   const handleClick = (coordinates) => {
-    setCurrentCoordinates(coordinates);
+    // setCurrentCoordinates(coordinates);
   }
 
   return (
