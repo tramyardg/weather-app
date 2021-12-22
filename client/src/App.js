@@ -1,4 +1,4 @@
-import './app.scss';
+import './styles/app.scss';
 import 'animate.css';
 import { useEffect, useState } from "react";
 import { WeatherWidget } from './components/WeatherWidget';
@@ -79,7 +79,7 @@ function App() {
 
 
   const getTomorrowIoData = async (coordinates, startTime, endTime) => {
-    const API_KEY = "PH8YZb3RYH4PEZnoCcMFslQWjWPrU9U3";
+    const API_KEY = "9s2DzA2LjSt2li0ltKMYDUm9PBvbMqLE";
     let reqURL = `https://api.tomorrow.io/v4/timelines?fields=temperature,weatherCode&units=metric&timesteps=1d`;
     reqURL = reqURL + `&location=${coordinates}&apikey=${API_KEY}&startTime=${startTime}&endTime=${endTime}`;
 
