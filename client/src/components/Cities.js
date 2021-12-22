@@ -63,7 +63,7 @@ export const Cities = ({ cities, currentCity, handleClickCity }) => {
                             <rect y="60" width="100" height="20" rx="8"></rect>
                         </svg>
                     </div>
-                    <div className={`city-wrapper ${isMobileMenuActive ? 'active animate__animated animate__fadeInLeft' : ''}`}>
+                    <div className={`city-wrapper ${isMobileMenuActive ? 'active animate__animated animate__fadeInDown' : ''}`}>
                         {cities.map((item, i) =>
                             <button
                                 key={i}

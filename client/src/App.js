@@ -5,6 +5,7 @@ import { WeatherWidget } from './components/WeatherWidget';
 import { Cities } from './components/Cities';
 import { Forecast } from './components/Forecast';
 import dayjs from 'dayjs';
+import { testDateCurrent, testDateFourDay } from './helpers/testdata';
 // import { testDateCurrent, testDateFourDay } from './helpers/testdata';
 
 const LOCATIONS = [
@@ -50,24 +51,28 @@ const WEATHER_CODES = [
 ];
 
 function App() {
-  const [currentDayForecast, setCurrentDayForecast] = useState(null);
-  const [fourDayForecast, setFourDayForecast] = useState([]);
+  const [currentDayForecast, setCurrentDayForecast] = useState(null || testDateCurrent);
+  const [fourDayForecast, setFourDayForecast] = useState(null || testDateFourDay);
 
-  const startTime = dayjs().toISOString();
-  const endTime = dayjs().add(4, 'day').toISOString();
+  
 
   useEffect(() => {
     async function fetchData() {
+      const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
+      const endTime = dayjs().add(4, 'day').toISOString();
       await getTomorrowIoData(CURRENT_CITY.coordinates, startTime, endTime).then((response) => {
         setCurrentDayForecast(response[0]);
         setFourDayForecast(response.slice(1));
       });
+      
     }
     fetchData();
-  }, [startTime, endTime]);
+  }, []);
 
   const handleClickCity = async (coordinates) => {
     try {
+      const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
+      const endTime = dayjs().add(4, 'day').toISOString();
       await getTomorrowIoData(coordinates, startTime, endTime).then((response) => {
         setCurrentDayForecast(response[0]);
         setFourDayForecast(response.slice(1));
@@ -80,7 +85,7 @@ function App() {
 
 
   const getTomorrowIoData = async (coordinates, startTime, endTime) => {
-    const API_KEY = "9s2DzA2LjSt2li0ltKMYDUm9PBvbMqLE";
+    const API_KEY = "L9gfYCRfYj3LMz0JYbvhToI9yWIEbUNQ";
     let reqURL = `https://api.tomorrow.io/v4/timelines?fields=temperature,weatherCode&units=metric&timesteps=1d`;
     reqURL = reqURL + `&location=${coordinates}&apikey=${API_KEY}&startTime=${startTime}&endTime=${endTime}`;
 
