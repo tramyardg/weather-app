@@ -144,10 +144,17 @@
           @media (max-width: 799px) {
             .code-name {
               min-width: unset;
-              bottom: -15px;
+              bottom: -10px;
             }
           }
 
+        }
+      }
+
+      
+      @media (max-width: 799px) {
+        .info {
+          gap: 15px;
         }
       }
 
