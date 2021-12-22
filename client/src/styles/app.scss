@@ -109,7 +109,7 @@
       .info {
         img {
           width: 135px;
-          height: 130px;
+          height: 150px;
         }
         padding-bottom: 3.1rem;
         display: flex;
@@ -121,15 +121,19 @@
           display: flex;
           display: -webkit-flex;
           flex-direction: column;
+          position: relative;
 
           .celcius {
-            font-size: 4rem;
+            font-size: 6.2rem;
+            font-family: 'Teko', sans-serif;
           }
           
           .code-name {
             font-size: 1.8rem;
             letter-spacing: 1px;
             font-weight: 300;
+            position: absolute;
+            bottom: 20px;
           }
 
         }
@@ -171,7 +175,8 @@
         .celcius {
           padding: 1.2rem 0;
           
-          font-size: 1.6rem;
+          font-size: 2.4rem;
+          font-family: 'Teko', sans-serif;
           letter-spacing: 1px;
         }
 
