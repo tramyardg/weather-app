@@ -6,7 +6,6 @@ import { Cities } from './components/Cities';
 import { Forecast } from './components/Forecast';
 import dayjs from 'dayjs';
 import { testDateCurrent, testDateFourDay } from './helpers/testdata';
-// import { testDateCurrent, testDateFourDay } from './helpers/testdata';
 
 const LOCATIONS = [
   {
@@ -78,7 +77,7 @@ function App() {
 
 
   const getTomorrowIoData = async (coordinates, startTime, endTime) => {
-    const API_KEY = "L9gfYCRfYj3LMz0JYbvhToI9yWIEbUNQ";
+    const API_KEY = process.env.REACT_APP_TOMORROWIO_API_KEY;
     let reqURL = `https://api.tomorrow.io/v4/timelines?fields=temperature,weatherCode&units=metric&timesteps=1d`;
     reqURL = reqURL + `&location=${coordinates}&apikey=${API_KEY}&startTime=${startTime}&endTime=${endTime}`;
 
