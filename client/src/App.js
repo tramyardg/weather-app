@@ -1,6 +1,6 @@
 import './styles/app.scss';
 import 'animate.css';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { WeatherWidget } from './components/WeatherWidget';
 import { Cities } from './components/Cities';
 import { Forecast } from './components/Forecast';
@@ -54,14 +54,14 @@ function App() {
   const [currentDayForecast, setCurrentDayForecast] = useState(null || testDateCurrent);
   const [fourDayForecast, setFourDayForecast] = useState(null || testDateFourDay);
 
-  const fetchData = async (coordinates) => {
+  const fetchData = useCallback(async (coordinates) => {
     const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
     const endTime = dayjs().add(4, 'day').toISOString();
     await getTomorrowIoData(coordinates, startTime, endTime).then((response) => {
       setCurrentDayForecast(response[0]);
       setFourDayForecast(response.slice(1));
     });
-  }
+  })
 
   useEffect(() => {
     fetchData(CURRENT_CITY.coordinates);
