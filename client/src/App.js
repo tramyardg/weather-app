@@ -54,29 +54,23 @@ function App() {
   const [currentDayForecast, setCurrentDayForecast] = useState(null || testDateCurrent);
   const [fourDayForecast, setFourDayForecast] = useState(null || testDateFourDay);
 
-  
+  async function fetchData(coordinates) {
+    const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
+    const endTime = dayjs().add(4, 'day').toISOString();
+    await getTomorrowIoData(coordinates, startTime, endTime).then((response) => {
+      setCurrentDayForecast(response[0]);
+      setFourDayForecast(response.slice(1));
+    });
+    
+  }
 
   useEffect(() => {
-    async function fetchData() {
-      const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
-      const endTime = dayjs().add(4, 'day').toISOString();
-      await getTomorrowIoData(CURRENT_CITY.coordinates, startTime, endTime).then((response) => {
-        setCurrentDayForecast(response[0]);
-        setFourDayForecast(response.slice(1));
-      });
-      
-    }
-    fetchData();
+    fetchData(CURRENT_CITY.coordinates);
   }, []);
 
   const handleClickCity = async (coordinates) => {
     try {
-      const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
-      const endTime = dayjs().add(4, 'day').toISOString();
-      await getTomorrowIoData(coordinates, startTime, endTime).then((response) => {
-        setCurrentDayForecast(response[0]);
-        setFourDayForecast(response.slice(1));
-      });
+      fetchData(coordinates);
     } catch (error) {
       console.error(error);
     }
