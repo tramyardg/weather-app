@@ -65,7 +65,7 @@ function App() {
 
   useEffect(() => {
     fetchData(CURRENT_CITY.coordinates);
-  }, []);
+  }, [fetchData]);
 
   const handleClickCity = async (coordinates) => {
     try {
