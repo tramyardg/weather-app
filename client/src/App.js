@@ -61,7 +61,7 @@ function App() {
       setCurrentDayForecast(response[0]);
       setFourDayForecast(response.slice(1));
     });
-  })
+  }, []);
 
   useEffect(() => {
     fetchData(CURRENT_CITY.coordinates);
