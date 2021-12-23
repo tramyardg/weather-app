@@ -55,10 +55,10 @@ function App() {
 
   const fetchData = useCallback(async (coordinates) => {
     const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
-    const endTime = dayjs().add(4, 'day').toISOString();
+    const endTime = dayjs().add(5, 'day').toISOString();
     await getTomorrowIoData(coordinates, startTime, endTime).then((response) => {
       setCurrentDayForecast(response[0]);
-      setFourDayForecast(response.slice(1));
+      setFourDayForecast(response.slice(1, 5));
     });
   }, []);
 
