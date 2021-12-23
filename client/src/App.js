@@ -1,12 +1,11 @@
 import './styles/app.scss';
 import 'animate.css';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { WeatherWidget } from './components/WeatherWidget';
 import { Cities } from './components/Cities';
 import { Forecast } from './components/Forecast';
 import dayjs from 'dayjs';
 import { testDateCurrent, testDateFourDay } from './helpers/testdata';
-// import { testDateCurrent, testDateFourDay } from './helpers/testdata';
 
 const LOCATIONS = [
   {
@@ -54,29 +53,22 @@ function App() {
   const [currentDayForecast, setCurrentDayForecast] = useState(null || testDateCurrent);
   const [fourDayForecast, setFourDayForecast] = useState(null || testDateFourDay);
 
-  
+  const fetchData = useCallback(async (coordinates) => {
+    const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
+    const endTime = dayjs().add(4, 'day').toISOString();
+    await getTomorrowIoData(coordinates, startTime, endTime).then((response) => {
+      setCurrentDayForecast(response[0]);
+      setFourDayForecast(response.slice(1));
+    });
+  }, []);
 
   useEffect(() => {
-    async function fetchData() {
-      const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
-      const endTime = dayjs().add(4, 'day').toISOString();
-      await getTomorrowIoData(CURRENT_CITY.coordinates, startTime, endTime).then((response) => {
-        setCurrentDayForecast(response[0]);
-        setFourDayForecast(response.slice(1));
-      });
-      
-    }
-    fetchData();
-  }, []);
+    fetchData(CURRENT_CITY.coordinates);
+  }, [fetchData]);
 
   const handleClickCity = async (coordinates) => {
     try {
-      const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
-      const endTime = dayjs().add(4, 'day').toISOString();
-      await getTomorrowIoData(coordinates, startTime, endTime).then((response) => {
-        setCurrentDayForecast(response[0]);
-        setFourDayForecast(response.slice(1));
-      });
+      fetchData(coordinates);
     } catch (error) {
       console.error(error);
     }
@@ -85,7 +77,7 @@ function App() {
 
 
   const getTomorrowIoData = async (coordinates, startTime, endTime) => {
-    const API_KEY = "L9gfYCRfYj3LMz0JYbvhToI9yWIEbUNQ";
+    const API_KEY = process.env.REACT_APP_TOMORROWIO_API_KEY;
     let reqURL = `https://api.tomorrow.io/v4/timelines?fields=temperature,weatherCode&units=metric&timesteps=1d`;
     reqURL = reqURL + `&location=${coordinates}&apikey=${API_KEY}&startTime=${startTime}&endTime=${endTime}`;
 
