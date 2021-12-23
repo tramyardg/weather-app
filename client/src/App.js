@@ -54,14 +54,13 @@ function App() {
   const [currentDayForecast, setCurrentDayForecast] = useState(null || testDateCurrent);
   const [fourDayForecast, setFourDayForecast] = useState(null || testDateFourDay);
 
-  async function fetchData(coordinates) {
+  const fetchData = async (coordinates) => {
     const startTime = dayjs().toISOString(); // must be inside, otherwise will cause multiple requests
     const endTime = dayjs().add(4, 'day').toISOString();
     await getTomorrowIoData(coordinates, startTime, endTime).then((response) => {
       setCurrentDayForecast(response[0]);
       setFourDayForecast(response.slice(1));
     });
-    
   }
 
   useEffect(() => {
