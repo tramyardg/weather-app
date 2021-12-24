@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import dayjs from "dayjs";
-import { getDayOfWeek } from "../helpers/util";
+import { getDayOfWeek } from '../helpers/util';
 
-export const ForecastFourDay = ({ fourDayForecast, weatherCodes }) => {
+function ForecastFourDay({ fourDayForecast, weatherCodes }) {
 
     const getDayISOstring = (startTime) => getDayOfWeek(dayjs(startTime).day());
 
@@ -23,3 +24,10 @@ export const ForecastFourDay = ({ fourDayForecast, weatherCodes }) => {
         </div>
     )
 }
+
+ForecastFourDay.propTypes = {
+    weatherCodes: PropTypes.array,
+    fourDayForecast: PropTypes.array
+}
+
+export default ForecastFourDay

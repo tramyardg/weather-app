@@ -1,16 +1,14 @@
+import PropTypes from 'prop-types';
 import React, { useState } from "react";
+import { addAnimationClass, removeAnimationClass } from '../helpers/util';
 
-export const Cities = ({ cities, currentCity, handleClickCity }) => {
+function Cities({ cities, currentCity, handleClickCity }) {
 
     const [isMobileMenuActive, setIsMobileMenuActive] = useState(false);
 
     const handleActiveCity = (cityName) => {
         if (!document.querySelectorAll('button[data-city_name]')) return;
-
-        document.querySelectorAll('button[data-city_name]').forEach(e => {
-            const datasetCityName = e.dataset.city_name;
-            datasetCityName === cityName ? e.classList.add('active') : e.classList.remove('active');
-        });
+        document.querySelectorAll('button[data-city_name]').forEach(e => e.dataset.city_name === cityName ? e.classList.add('active') : e.classList.remove('active'));
 
         animateForcastBox();
     }
@@ -25,25 +23,14 @@ export const Cities = ({ cities, currentCity, handleClickCity }) => {
         const weatherIconClassList = document.querySelector('.weather-icon').classList;
         const degreeCelciusClassList = document.querySelector('.degree-celcius').classList;
         const fourDayClassList = document.querySelector('.four-day').classList;
-
-        weatherIconClassList.add('animate__animated');
-        weatherIconClassList.add('animate__slideInLeft');
-
-        degreeCelciusClassList.add('animate__animated');
-        degreeCelciusClassList.add('animate__slideInRight');
-
-        fourDayClassList.add('animate__animated');
-        fourDayClassList.add('animate__fadeIn');
+        addAnimationClass(weatherIconClassList, 'animate__slideInLeft');
+        addAnimationClass(degreeCelciusClassList, 'animate__slideInRight');
+        addAnimationClass(fourDayClassList, 'animate__fadeIn');
 
         setTimeout(function () {
-            weatherIconClassList.remove('animate__animated');
-            weatherIconClassList.remove('animate__slideInLeft');
-
-            degreeCelciusClassList.remove('animate__animated');
-            degreeCelciusClassList.remove('animate__slideInRight');
-
-            fourDayClassList.remove('animate__animated');
-            fourDayClassList.remove('animate__fadeIn');
+            removeAnimationClass(weatherIconClassList, 'animate__slideInLeft');
+            removeAnimationClass(degreeCelciusClassList, 'animate__slideInRight');
+            removeAnimationClass(fourDayClassList, 'animate__fadeIn');
         }, 1000);
 
     }
@@ -75,8 +62,15 @@ export const Cities = ({ cities, currentCity, handleClickCity }) => {
                         )}
                     </div>
                 </>
-
             )}
         </>
     );
 };
+
+Cities.propTypes = {
+    cities: PropTypes.array,
+    currentCity: PropTypes.object,
+    handleClickCity: PropTypes.func
+}
+
+export default Cities;

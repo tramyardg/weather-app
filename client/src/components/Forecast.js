@@ -1,7 +1,8 @@
-import { ForecastCurrent } from "./ForecastCurrent";
-import { ForecastFourDay } from "./ForecastFourDay";
+import PropTypes from 'prop-types';
+import ForecastCurrent from "./ForecastCurrent";
+import ForecastFourDay from "./ForecastFourDay";
 
-export const Forecast = ({ weatherCodes, currentDayForecast, fourDayForecast }) => {
+function Forecast({ weatherCodes, currentDayForecast, fourDayForecast }) {
     // console.log(currentDayForecast, fourDayForecast);
 
     return (
@@ -15,3 +16,11 @@ export const Forecast = ({ weatherCodes, currentDayForecast, fourDayForecast }) 
         </>
     );
 };
+
+Forecast.propTypes = {
+    weatherCodes: PropTypes.array,
+    currentDayForecast: PropTypes.object,
+    fourDayForecast: PropTypes.array
+}
+
+export default Forecast;

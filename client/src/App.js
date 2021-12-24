@@ -1,9 +1,9 @@
 import './styles/app.scss';
 import 'animate.css';
 import { useEffect, useState, useCallback } from "react";
-import { WeatherWidget } from './components/WeatherWidget';
-import { Cities } from './components/Cities';
-import { Forecast } from './components/Forecast';
+import WeatherWidget from './components/WeatherWidget';
+import Cities from './components/Cities';
+import Forecast from './components/Forecast';
 import dayjs from 'dayjs';
 import { testDateCurrent, testDateFourDay } from './helpers/testdata';
 

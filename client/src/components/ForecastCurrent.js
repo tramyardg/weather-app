@@ -1,4 +1,6 @@
-export const ForecastCurrent = ({ weatherCodes, currentDayForecast }) => {
+import PropTypes from 'prop-types';
+
+function ForecastCurrent({ weatherCodes, currentDayForecast }) {
 
     return (
         <div className="current">
@@ -21,3 +23,10 @@ export const ForecastCurrent = ({ weatherCodes, currentDayForecast }) => {
         </div>
     )
 }
+
+ForecastCurrent.propTypes = {
+    weatherCodes: PropTypes.array,
+    currentDayForecast: PropTypes.object
+}
+
+export default ForecastCurrent;
